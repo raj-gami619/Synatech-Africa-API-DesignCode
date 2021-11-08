@@ -1,0 +1,382 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Synatech Africa Clients",
+    "description": "Recruitment Test",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/r8813/SynatechAfrica-clients/1.0"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/clients": {
+      "summary": "Synatech Africa Clients",
+      "description": "Details of Synatech Africa Clients",
+      "get": {
+        "tags": [],
+        "summary": "Get Clients",
+        "description": "Will list all the clients in the system",
+        "operationId": "getAllClients",
+        "responses": {
+          "200": {
+            "description": "allClientsResponse api doc specification for getting all clients",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/client"
+                }
+              }
+            },
+            "x-last-modified": 1627572899028
+          },
+          "default": {
+            "description": "ErrorMsg error message\nGeneric Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "x-last-modified": 1627573153279
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [],
+        "summary": "Create Client",
+        "description": "Will add a new client",
+        "operationId": "createClientRequest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createClientRequestPayload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Operation succeeded",
+            "x-last-modified": 1627573631923
+          },
+          "default": {
+            "description": "ErrorMsg error message\nGeneric Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "x-last-modified": 1627573153279
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "x-last-modified": 1627569919720
+    },
+    "/clients/{id}": {
+      "summary": "Synatech Africa Clients",
+      "description": "Details of a Specific Synatech Africa Client",
+      "get": {
+        "tags": [],
+        "summary": "Get Client by ID",
+        "description": "Will get a client by PK",
+        "operationId": "getClientRequest",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID",
+            "required": true,
+            "deprecated": false,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "x-last-modified": 1627573873686
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ClientResponse api doc specification for getting particular client",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/client"
+                }
+              }
+            },
+            "x-last-modified": 1627573028789
+          },
+          "default": {
+            "description": "ErrorMsg error message\nGeneric Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "x-last-modified": 1627573153279
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "x-last-modified": 1627569999247
+    },
+    "/login": {
+      "summary": "Authorization ",
+      "description": "User Authorization for Token Generation",
+      "post": {
+        "tags": [],
+        "summary": "Login",
+        "description": "Will get a token to be used for all requests",
+        "operationId": "authorizationRequest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/authorizationRequestPayload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "AuthResponse api doc specification for auth response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authorizationResponsePayload"
+                }
+              }
+            },
+            "x-last-modified": 1627573102235
+          },
+          "default": {
+            "description": "ErrorMsg error message\nGeneric Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/genericError"
+                }
+              }
+            },
+            "x-last-modified": 1627573153279
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "x-last-modified": 1627570083208
+    }
+  },
+  "components": {
+    "schemas": {
+      "genericError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "status_code": {
+            "type": "integer",
+            "description": "Status code",
+            "format": "int64"
+          }
+        },
+        "description": "Error type and message",
+        "x-last-modified": 1627571928044
+      },
+      "client": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "description": "Creation date of client",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "description": "Client ID",
+            "format": "int64"
+          },
+          "location": {
+            "type": "string",
+            "description": "Client location"
+          },
+          "name": {
+            "type": "string",
+            "description": "Client name"
+          },
+          "unique_account": {
+            "type": "string"
+          }
+        },
+        "description": "Synatech Africa clients",
+        "x-last-modified": 1627571951253
+      },
+      "createClientRequestPayload": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "description": "Client location"
+          },
+          "name": {
+            "type": "string",
+            "description": "Client name"
+          }
+        },
+        "description": "Request payload to create a new client",
+        "x-last-modified": 1627571961633
+      },
+      "authorizationResponsePayload": {
+        "type": "object",
+        "properties": {
+          "authorization_token": {
+            "type": "string",
+            "description": "Authorization token"
+          },
+          "token_expiry": {
+            "type": "string",
+            "description": "Expiry date and time of token",
+            "format": "date-time"
+          },
+          "user": {
+            "$ref": "#/components/schemas/user"
+          }
+        },
+        "description": "Response payload after successful authorization",
+        "x-last-modified": 1627572310648
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "User ID",
+            "format": "uint64"
+          },
+          "username": {
+            "type": "string",
+            "description": "Name of user"
+          }
+        },
+        "description": "User details",
+        "x-last-modified": 1627572533224
+      },
+      "authorizationRequestPayload": {
+        "type": "object",
+        "properties": {
+          "password": {
+            "type": "string",
+            "description": "Password input from user"
+          },
+          "username": {
+            "type": "string",
+            "description": "Name of user"
+          }
+        },
+        "description": "Reponse payload to authorize user",
+        "x-last-modified": 1627572723616
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Operation succeeded",
+        "x-last-modified": 1627573631923
+      },
+      "allClientsResponse": {
+        "description": "allClientsResponse api doc specification for getting all clients",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/client"
+            }
+          }
+        },
+        "x-last-modified": 1627572899028
+      },
+      "clientResponse": {
+        "description": "ClientResponse api doc specification for getting particular client",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/client"
+            }
+          }
+        },
+        "x-last-modified": 1627573028789
+      },
+      "authResponse": {
+        "description": "AuthResponse api doc specification for auth response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/authorizationResponsePayload"
+            }
+          }
+        },
+        "x-last-modified": 1627573102235
+      },
+      "errorMsg": {
+        "description": "ErrorMsg error message\nGeneric Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/genericError"
+            }
+          }
+        },
+        "x-last-modified": 1627573153279
+      },
+      "unauthorizedError": {
+        "description": "Access token is missing or invalid",
+        "x-last-modified": 1627729364201
+      }
+    },
+    "parameters": {},
+    "headers": {},
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "description": "bearerFormat: JWT",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "x-last-modified": 1627729104058
+      }
+    }
+  }
+}

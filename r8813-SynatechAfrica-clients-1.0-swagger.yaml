@@ -1,0 +1,230 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: Synatech Africa Clients
+  description: Recruitment Test
+servers:
+    - url: https://virtserver.swaggerhub.com/r8813/SynatechAfrica-clients/1.0
+paths:
+  /clients:
+    summary: Synatech Africa Clients
+    description: Details of Synatech Africa Clients
+    get:
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/allClientsResponse'
+          x-last-modified: 1627573219440
+        default:
+          $ref: '#/components/responses/errorMsg'
+          x-last-modified: 1627573235703
+      security:
+        - bearerAuth: []
+      operationId: getAllClients
+      summary: Get Clients
+      description: Will list all the clients in the system
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createClientRequestPayload'
+        required: true
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+          x-last-modified: 1627573652829
+        default:
+          $ref: '#/components/responses/errorMsg'
+          x-last-modified: 1627573684419
+      security:
+        - bearerAuth: []
+      operationId: createClientRequest
+      summary: Create Client
+      description: Will add a new client
+    x-last-modified: 1627569919720
+  /clients/{id}:
+    summary: Synatech Africa Clients
+    description: Details of a Specific Synatech Africa Client
+    get:
+      tags: []
+      parameters:
+        - deprecated: false
+          name: id
+          description: ID
+          schema:
+            format: int64
+            type: integer
+          in: path
+          required: true
+          x-last-modified: 1627573873686
+      responses:
+        '200':
+          $ref: '#/components/responses/clientResponse'
+          x-last-modified: 1627573921582
+        default:
+          $ref: '#/components/responses/errorMsg'
+          x-last-modified: 1627573937291
+      security:
+        - bearerAuth: []
+      operationId: getClientRequest
+      summary: Get Client by ID
+      description: Will get a client by PK
+    x-last-modified: 1627569999247
+  /login:
+    summary: 'Authorization '
+    description: User Authorization for Token Generation
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authorizationRequestPayload'
+        required: true
+      tags: []
+      responses:
+        '200':
+          $ref: '#/components/responses/authResponse'
+          x-last-modified: 1627574014392
+        default:
+          $ref: '#/components/responses/errorMsg'
+          x-last-modified: 1627574028527
+      security:
+        - bearerAuth: []
+      operationId: authorizationRequest
+      summary: Login
+      description: Will get a token to be used for all requests
+    x-last-modified: 1627570083208
+components:
+  schemas:
+    genericError:
+      description: Error type and message
+      type: object
+      properties:
+        message:
+          description: Error message
+          type: string
+        status_code:
+          format: int64
+          description: Status code
+          type: integer
+      x-last-modified: 1627571928044
+    client:
+      description: Synatech Africa clients
+      type: object
+      properties:
+        created_at:
+          format: date-time
+          description: Creation date of client
+          type: string
+        id:
+          format: int64
+          description: Client ID
+          type: integer
+        location:
+          description: Client location
+          type: string
+        name:
+          description: Client name
+          type: string
+        unique_account:
+          type: string
+      x-last-modified: 1627571951253
+    createClientRequestPayload:
+      description: Request payload to create a new client
+      type: object
+      properties:
+        location:
+          description: Client location
+          type: string
+        name:
+          description: Client name
+          type: string
+      x-last-modified: 1627571961633
+    authorizationResponsePayload:
+      description: Response payload after successful authorization
+      type: object
+      properties:
+        authorization_token:
+          description: Authorization token
+          type: string
+        token_expiry:
+          format: date-time
+          description: Expiry date and time of token
+          type: string
+        user:
+          $ref: '#/components/schemas/user'
+      x-last-modified: 1627572310648
+    user:
+      description: User details
+      type: object
+      properties:
+        id:
+          format: uint64
+          description: User ID
+          type: integer
+        username:
+          description: Name of user
+          type: string
+      x-last-modified: 1627572533224
+    authorizationRequestPayload:
+      description: Reponse payload to authorize user
+      type: object
+      properties:
+        password:
+          description: Password input from user
+          type: string
+        username:
+          description: Name of user
+          type: string
+      x-last-modified: 1627572723616
+  responses:
+    '200':
+      description: Operation succeeded
+      x-last-modified: 1627573631923
+    allClientsResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/client'
+      description: allClientsResponse api doc specification for getting all clients
+      x-last-modified: 1627572899028
+    clientResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/client'
+      description: ClientResponse api doc specification for getting particular client
+      x-last-modified: 1627573028789
+    authResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/authorizationResponsePayload'
+      description: AuthResponse api doc specification for auth response
+      x-last-modified: 1627573102235
+    errorMsg:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/genericError'
+      description: |-
+        ErrorMsg error message
+        Generic Error
+      x-last-modified: 1627573153279
+    unauthorizedError:
+      description: Access token is missing or invalid
+      x-last-modified: 1627729364201
+  securitySchemes:
+    bearerAuth:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+      description: 'bearerFormat: JWT'
+      x-last-modified: 1627729104058
+  headers: {}
+  parameters: {}
+security:
+  - bearerAuth: []
+tags: []
